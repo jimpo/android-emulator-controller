@@ -23,7 +23,7 @@ public class ControllerSelector extends BluetoothActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.controllerselector_view);
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, R.layout.controller_name);
-        mAdapter.add(PressDatButton.class.getName());
+        mAdapter.add(ClassicController.class.getName());
         
         final BluetoothAdapter mBtAdapter = BluetoothAdapter.getDefaultAdapter();
         final Context self = this;

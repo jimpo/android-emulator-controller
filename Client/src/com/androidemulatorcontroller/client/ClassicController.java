@@ -13,7 +13,7 @@ import android.widget.Toast;*/
 import android.view.KeyEvent;
 
 
-public class PressDatButton extends BluetoothActivity {
+public class ClassicController extends BluetoothActivity {
 //	OnClickListener myClickListener = new OnClickListener() {
 //		Button Bup = (Button) findViewById(R.id.button1);
 //		Button BA = (Button) findViewById(R.id.button2);
