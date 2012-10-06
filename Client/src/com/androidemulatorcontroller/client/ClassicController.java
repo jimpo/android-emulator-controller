@@ -25,8 +25,8 @@ import android.widget.TextView;
 public class ClassicController extends BluetoothActivity implements SensorEventListener {
     public static final String name = "Classic Controller";
 
-    private static double PY = .0000001, PZ = .0000000001;
-    private static double NY = 10, NZ = 8;
+    private static double PY = .00000001, PZ = .000000000001;
+    private static double NY = 8, NZ = 6;
     private float[] calibration = null;
 
 
@@ -87,10 +87,10 @@ public class ClassicController extends BluetoothActivity implements SensorEventL
 		event.values[2] -= calibration[2];
 		
           if (Math.random() < PY * Math.pow(event.values[1] - calibration[1], NY)) {
-        	  writeKeyEvent(event.values[1] -calibration[1]< 0 ? KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT);
+        	 writeKeyEvent(event.values[1] -calibration[1]< 0 ? KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT);
           }
           if (Math.random() < PZ * Math.pow(event.values[2] - calibration[2], NZ)) {
-        	  writeKeyEvent(event.values[2] - calibration[2] < 0 ? KeyEvent.KEYCODE_DPAD_UP : KeyEvent.KEYCODE_DPAD_DOWN);
+        	 writeKeyEvent(event.values[2] - calibration[2] < 0 ? KeyEvent.KEYCODE_DPAD_UP : KeyEvent.KEYCODE_DPAD_DOWN);
           }
 		   }
 	
