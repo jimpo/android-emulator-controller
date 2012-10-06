@@ -161,7 +161,7 @@ public class BluetoothActivity extends Activity {
 	}
 
     public void writeKeyEvent(int keyevent) {
-        mCommandService.write(BluetoothCommandService.VOL_UP);
+        mCommandService.write(keyevent);
     }
 
 }
