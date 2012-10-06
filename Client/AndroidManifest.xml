@@ -28,7 +28,10 @@
             android:configChanges="orientation|keyboardHidden" />
         <activity
             android:name=".ControllerSelector"
-            android:label="@string/select_device" />
+            android:label="@string/select_controller" />
+        <activity
+            android:name=".ClassicController"
+            android:label="@string/classic_controller" />
 
     </application>
 </manifest>

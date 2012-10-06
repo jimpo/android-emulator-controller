@@ -20,5 +20,7 @@
     <string name="welcome">Welcome to this app!</string>
     <string name="useIt">How to use it</string>
     <string name="getStarted">Click here to get started!</string>
+    <string name="select_controller">Select a controller to get started!</string>
+    <string name="classic_controller">Classic Controller</string>
 
 </resources>
