@@ -31,8 +31,7 @@ public class BluetoothActivity extends Activity {
     // Local Bluetooth adapter
     private BluetoothAdapter mBluetoothAdapter = null;
     // Member object for Bluetooth Command Service
-    private BluetoothCommandService mCommandService = null;
-    private BluetoothDevice mDevice = null;
+    private static BluetoothCommandService mCommandService = null;
     private final Activity self = this;
     private String address = null;
 
@@ -52,9 +51,7 @@ public class BluetoothActivity extends Activity {
         }
 
         Intent intent = getIntent();
-        
         address = intent.getStringExtra(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
-        mDevice = mBluetoothAdapter.getRemoteDevice(address);
     }
 
     public String getAddress() {
@@ -97,8 +94,8 @@ public class BluetoothActivity extends Activity {
 	protected void onDestroy() {
 		super.onDestroy();
 
-		if (mCommandService != null)
-			mCommandService.stop();
+		//if (mCommandService != null)
+			//mCommandService.stop();
 	}
 
 	private void setupCommand() {
@@ -107,7 +104,7 @@ public class BluetoothActivity extends Activity {
 	}
 	
 	public void connect() {
-        mCommandService.connect(mDevice);
+        mCommandService.connect(mBluetoothAdapter.getRemoteDevice(address));
 	}
 
 	// The Handler that gets information back from the BluetoothChatService

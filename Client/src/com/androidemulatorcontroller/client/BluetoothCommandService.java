@@ -21,8 +21,8 @@ public class BluetoothCommandService {
 
     // Unique UUID for this application
     private static final UUID MY_UUID = UUID.fromString("04c6093b-0000-1000-8000-00805f9b34fb");
-    
-    
+
+
     // Member fields
     private final BluetoothAdapter mAdapter;
     private final Handler mHandler;
@@ -31,7 +31,7 @@ public class BluetoothCommandService {
     private int mState;
 //    private BluetoothDevice mSavedDevice;
 //    private int mConnectionLostCount;
-    
+
     // Constants that indicate the current connection state
     public static final int STATE_NONE = 0;       // we're doing nothing
     public static final int STATE_LISTEN = 1;     // now listening for incoming connections

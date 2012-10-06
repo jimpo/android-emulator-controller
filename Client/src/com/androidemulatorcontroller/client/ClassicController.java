@@ -14,8 +14,10 @@ import android.view.KeyEvent;
 
 
 public class ClassicController extends BluetoothActivity {
+    public static final String name = "Classic Controller";
 
-	public void ButtClick(View v) {
+
+	public void ButtPress(View v) {
 		switch (v.getId()) {
         case R.id.buttonup:
 			writeKeyEvent(KeyEvent.KEYCODE_DPAD_UP);
@@ -43,11 +45,5 @@ public class ClassicController extends BluetoothActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.controller_use);
 		// Set Click Listener
-	}
-	
-	@Override
-	public void onStart() {
-		super.onStart();
-		connect();
 	}
 }

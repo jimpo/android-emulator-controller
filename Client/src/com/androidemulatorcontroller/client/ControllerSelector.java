@@ -16,18 +16,24 @@ import android.view.View;
 
 
 public class ControllerSelector extends BluetoothActivity{
-    public static String EXTRA_DEVICE_ADDRESS = "device_address";	
-	
+    public static String EXTRA_DEVICE_ADDRESS = "device_address";
+
+    public Class<? extends Activity> controllerClass(String name) {
+        if (name.equals(ClassicController.name))
+            return ClassicController.class;
+        return Activity.class;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.controllerselector_view);
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, R.layout.controller_name);
-        mAdapter.add(ClassicController.class.getName());
-        
+        mAdapter.add(ClassicController.name);
+
         final BluetoothAdapter mBtAdapter = BluetoothAdapter.getDefaultAdapter();
         final Context self = this;
-        
+
         OnItemClickListener mDeviceClickListener = new OnItemClickListener() {
             public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3) {
                 // Cancel discovery because it's costly and we're about to connect
@@ -38,13 +44,7 @@ public class ControllerSelector extends BluetoothActivity{
 
                 // Create the result Intent and include the MAC address
                 Intent intent = null;
-				try {
-					intent = new Intent(self, Class.forName(controller));
-				} catch (ClassNotFoundException e) {
-					System.out.println("You done fucked up");
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                intent = new Intent(self, controllerClass(controller));
                 intent.putExtra(DeviceListActivity.EXTRA_DEVICE_ADDRESS, getAddress());
 
                 // Set result and finish this Activity
@@ -52,15 +52,16 @@ public class ControllerSelector extends BluetoothActivity{
                 finish();
             }
         };
-        
+
         ListView controllerTypes = (ListView) findViewById(R.id.controller_type);
         controllerTypes.setAdapter(mAdapter);
         controllerTypes.setOnItemClickListener(mDeviceClickListener);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
+    public void onStart() {
+        super.onStart();
+        connect();
     }
 
 }
