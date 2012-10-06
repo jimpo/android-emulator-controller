@@ -22,5 +22,11 @@
     <string name="getStarted">Click here to get started!</string>
     <string name="select_controller">Select a controller to get started!</string>
     <string name="classic_controller">Classic Controller</string>
+    <string name="Up">Up</string>
+    <string name="Down">Down</string>
+    <string name="Left">Left</string>
+    <string name="Right">Right</string>
+    <string name="B">B</string>
+    <string name="A">A</string>
 
 </resources>
