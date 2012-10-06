@@ -62,15 +62,14 @@ public class BluetoothActivity extends Activity {
         }
         
         BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+        onStart();
         mCommandService.connect(device);
-        setupCommand();
     }
 
 	@Override
 	protected void onStart() {
 		super.onStart();
 		
-		System.out.println("starting");
 		// If BT is not on, request that it be enabled.
         // setupCommand() will then be called during onActivityResult
 		if (!mBluetoothAdapter.isEnabled()) {
