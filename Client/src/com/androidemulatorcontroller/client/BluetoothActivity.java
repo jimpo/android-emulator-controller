@@ -15,7 +15,7 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RemoteBluetooth extends Activity {
+public class BluetoothActivity extends Activity {
 	
 	// Layout view
 	private TextView mTitle;
@@ -188,34 +188,9 @@ public class RemoteBluetooth extends Activity {
         inflater.inflate(R.menu.option_menu, menu);
         return true;
 	}
-	
-	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.scan:
-            // Launch the DeviceListActivity to see devices and do scan
-        	Intent serverIntent = new Intent(this, DeviceListActivity.class);
-            startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
-            return true;
-        case R.id.discoverable:
-            // Ensure this device is discoverable by others
-            ensureDiscoverable();
-            return true;
-        }
-        return false;
+
+    public void writeKeyEvent(int keyevent) {
+        mCommandService.write(BluetoothCommandService.VOL_UP);
     }
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-			mCommandService.write(BluetoothCommandService.VOL_UP);
-			return true;
-		}
-		else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
-			mCommandService.write(BluetoothCommandService.VOL_DOWN);
-			return true;
-		}
-		
-		return super.onKeyDown(keyCode, event);
-	}
 }

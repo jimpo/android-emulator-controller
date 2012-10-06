@@ -17,5 +17,8 @@
     <string name="title_connecting">connecting...</string>
     <string name="title_not_connected">not connected</string>
     <string name="done">Done</string>
+    <string name="welcome">Welcome to this app!</string>
+    <string name="useIt">How to use it</string>
+    <string name="getStarted">Click here to get started!</string>
 
 </resources>

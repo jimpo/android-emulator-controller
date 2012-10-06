@@ -1,20 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <ScrollView
-        android:id="@+id/SCROLL_VIEW"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <TextView android:id="@+id/title_paired_devices"
         android:layout_width="fill_parent"
-        android:layout_height="150px" >
+        android:layout_height="wrap_content"
+        android:text="@string/title_paired_devices"
+        android:visibility="gone"
+        android:background="#666"
+        android:textColor="#fff"
+        android:paddingLeft="5dp"
+    />
 
-        <TextView
-            android:id="@+id/TEXT_VIEW"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="This text view should act as header This text view should act as header This text view should act as header This text view should act as header This text view should act as header This text view should act as header This text view should act as header" />
-    </ScrollView>
-    
+    <Button
+        android:id="@+id/button_scan"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_scan" />
+
 </RelativeLayout>
-
-
