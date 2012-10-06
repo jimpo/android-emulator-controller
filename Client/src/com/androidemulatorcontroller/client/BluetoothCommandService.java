@@ -9,6 +9,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,13 +38,13 @@ public class BluetoothCommandService {
     public static final int STATE_LISTEN = 1;     // now listening for incoming connections
     public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
     public static final int STATE_CONNECTED = 3;  // now connected to a remote device
-    
+
     // Constants that indicate command to computer
     public static final int EXIT_CMD = -1;
     public static final int VOL_UP = 1;
     public static final int VOL_DOWN = 2;
     public static final int MOUSE_MOVE = 3;
-    
+
     /**
      * Constructor. Prepares a new BluetoothChat session.
      * @param context  The UI Activity Context
@@ -51,11 +52,20 @@ public class BluetoothCommandService {
      */
     public BluetoothCommandService(Context context, Handler handler) {
     	mAdapter = BluetoothAdapter.getDefaultAdapter();
+
     	mState = STATE_NONE;
     	//mConnectionLostCount = 0;
     	mHandler = handler;
     }
-    
+
+    public boolean bluetoothSupported() {
+        return mAdapter != null;
+    }
+
+    public boolean enabled() {
+        return mAdapter.isEnabled();
+    }
+
     /**
      * Set the current state of the chat connection
      * @param state  An integer defining the current connection state
