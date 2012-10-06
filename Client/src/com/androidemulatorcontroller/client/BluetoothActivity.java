@@ -7,50 +7,38 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.Window;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class BluetoothActivity extends Activity {
-	
-	// Layout view
-	private TextView mTitle;
-	
 	// Intent request codes
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
-    
+
     // Message types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
     public static final int MESSAGE_READ = 2;
     public static final int MESSAGE_WRITE = 3;
     public static final int MESSAGE_DEVICE_NAME = 4;
     public static final int MESSAGE_TOAST = 5;
-    
+
     // Key names received from the BluetoothCommandService Handler
     public static final String DEVICE_NAME = "device_name";
     public static final String TOAST = "toast";
-	
+
 	// Name of the connected device
     private String mConnectedDeviceName = null;
     // Local Bluetooth adapter
     private BluetoothAdapter mBluetoothAdapter = null;
     // Member object for Bluetooth Command Service
     private BluetoothCommandService mCommandService = null;
+    private BluetoothDevice mDevice = null;
     private final Activity self = this;
-	
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        Intent intent = getIntent();
-        String address = intent.getStringExtra(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
-        
+
         // Get local Bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -60,16 +48,16 @@ public class BluetoothActivity extends Activity {
             finish();
             return;
         }
-        
-        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
-        onStart();
-        mCommandService.connect(device);
+
+        Intent intent = getIntent();
+        String address = intent.getStringExtra(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+        mDevice = mBluetoothAdapter.getRemoteDevice(address);
     }
 
 	@Override
 	protected void onStart() {
 		super.onStart();
-		
+
 		// If BT is not on, request that it be enabled.
         // setupCommand() will then be called during onActivityResult
 		if (!mBluetoothAdapter.isEnabled()) {
@@ -83,11 +71,11 @@ public class BluetoothActivity extends Activity {
 				setupCommand();
 		}
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+
 		// Performing this check in onResume() covers the case in which BT was
         // not enabled during onStart(), so we were paused to enable it...
         // onResume() will be called when ACTION_REQUEST_ENABLE activity returns.
@@ -98,28 +86,20 @@ public class BluetoothActivity extends Activity {
 		}
 	}
 
-	private void setupCommand() {
-		// Initialize the BluetoothChatService to perform bluetooth connections
-        mCommandService = new BluetoothCommandService(this, mHandler);
-	}
-
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		
+
 		if (mCommandService != null)
 			mCommandService.stop();
 	}
-	
-	private void ensureDiscoverable() {
-        if (mBluetoothAdapter.getScanMode() !=
-            BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
-            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-            startActivity(discoverableIntent);
-        }
-    }
-	
+
+	private void setupCommand() {
+		// Initialize the BluetoothChatService to perform bluetooth connections
+        mCommandService = new BluetoothCommandService(this, mHandler);
+        mCommandService.connect(mDevice);
+	}
+
 	// The Handler that gets information back from the BluetoothChatService
     private final Handler mHandler = new Handler() {
         @Override
@@ -152,16 +132,8 @@ public class BluetoothActivity extends Activity {
             }
         }
     };
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-//		MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.option_menu, menu);
-        return true;
-	}
 
     public void writeKeyEvent(int keyevent) {
         mCommandService.write(keyevent);
     }
-
 }
