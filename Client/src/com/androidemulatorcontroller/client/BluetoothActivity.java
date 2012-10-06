@@ -49,7 +49,7 @@ public class BluetoothActivity extends Activity {
         
         // Set up the window layout
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.main);
+        setContentView(R.layout.main_activity);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
         
         // Set up the custom title
@@ -184,8 +184,8 @@ public class BluetoothActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.option_menu, menu);
+//		MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.option_menu, menu);
         return true;
 	}
 
