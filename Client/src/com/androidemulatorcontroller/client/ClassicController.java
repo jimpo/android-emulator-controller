@@ -1,6 +1,8 @@
 package com.androidemulatorcontroller.client;
 
 //import android.app.Activity;
+import java.util.Arrays;
+
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -23,8 +25,9 @@ import android.widget.TextView;
 public class ClassicController extends BluetoothActivity implements SensorEventListener {
     public static final String name = "Classic Controller";
 
-    private static double PY = 4, PZ = 10;
-    private static double NY = 4, NZ = 4;
+    private static double PY = .0000001, PZ = .0000000001;
+    private static double NY = 10, NZ = 8;
+    private float[] calibration = null;
 
 
  // Create a constant to convert nanoseconds to seconds.
@@ -68,13 +71,31 @@ public class ClassicController extends BluetoothActivity implements SensorEventL
 	    outputZ = (TextView) findViewById(R.id.TextView03);
 	}
 
+	  @Override
+	  protected void onResume() {
+	    super.onResume();
+	    mSensorManager.registerListener(this, mOrientation, SensorManager.SENSOR_DELAY_NORMAL);
+	  }
+
+	  @Override
+	  protected void onPause() {
+	    super.onPause();
+	    mSensorManager.unregisterListener(this);
+	  }
+	
 	public void onSensorChanged(SensorEvent event) {
-          
-          if (Math.random() < PY * Math.pow(event.values[1], NY)) {
-        	  writeKeyEvent(event.values[1] < 0 ? KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT);
+
+		if (calibration == null)
+			calibration = Arrays.copyOf(event.values, 3);
+		
+		event.values[1] -= calibration[1];
+		event.values[2] -= calibration[2];
+		
+          if (Math.random() < PY * Math.pow(event.values[1] - calibration[1], NY)) {
+        	  writeKeyEvent(event.values[1] -calibration[1]< 0 ? KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT);
           }
-          if (Math.random() < PZ * Math.pow(event.values[2], NZ)) {
-        	  writeKeyEvent(event.values[2] < 0 ? KeyEvent.KEYCODE_DPAD_UP : KeyEvent.KEYCODE_DPAD_DOWN);
+          if (Math.random() < PZ * Math.pow(event.values[2] - calibration[2], NZ)) {
+        	  writeKeyEvent(event.values[2] - calibration[2] < 0 ? KeyEvent.KEYCODE_DPAD_UP : KeyEvent.KEYCODE_DPAD_DOWN);
           }
           
           outputX.setText("x:"+Float.toString(event.values[0]));
