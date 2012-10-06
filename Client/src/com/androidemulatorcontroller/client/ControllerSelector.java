@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.view.View;
 
 
-public class ControllerSelector extends Activity{
+public class ControllerSelector extends BluetoothActivity{
     public static String EXTRA_DEVICE_ADDRESS = "device_address";	
 	
     @Override

@@ -41,19 +41,15 @@ public class BluetoothActivity extends Activity {
     private BluetoothAdapter mBluetoothAdapter = null;
     // Member object for Bluetooth Command Service
     private BluetoothCommandService mCommandService = null;
+    private final Activity self = this;
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        // Set up the window layout
-        setContentView(R.layout.main_activity);
-        
-        // Set up the custom title
-        mTitle = (TextView) findViewById(R.id.title_left_text);
-        mTitle.setText(R.string.app_name);
-        mTitle = (TextView) findViewById(R.id.title_right_text);
+        Intent intent = getIntent();
+        String address = intent.getStringExtra(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
         
         // Get local Bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -64,15 +60,21 @@ public class BluetoothActivity extends Activity {
             finish();
             return;
         }
+        
+        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+        mCommandService.connect(device);
+        setupCommand();
     }
 
 	@Override
 	protected void onStart() {
 		super.onStart();
 		
+		System.out.println("starting");
 		// If BT is not on, request that it be enabled.
         // setupCommand() will then be called during onActivityResult
 		if (!mBluetoothAdapter.isEnabled()) {
+			System.out.println("not enabled");
 			Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
 		}
@@ -127,15 +129,14 @@ public class BluetoothActivity extends Activity {
             case MESSAGE_STATE_CHANGE:
                 switch (msg.arg1) {
                 case BluetoothCommandService.STATE_CONNECTED:
-                    mTitle.setText(R.string.title_connected_to);
-                    mTitle.append(mConnectedDeviceName);
+                	Toast.makeText(self, R.string.title_connected_to, Toast.LENGTH_LONG).show();
                     break;
                 case BluetoothCommandService.STATE_CONNECTING:
-                    mTitle.setText(R.string.title_connecting);
+                	Toast.makeText(self, R.string.title_connecting, Toast.LENGTH_LONG).show();
                     break;
                 case BluetoothCommandService.STATE_LISTEN:
                 case BluetoothCommandService.STATE_NONE:
-                    mTitle.setText(R.string.title_not_connected);
+                	Toast.makeText(self, R.string.title_not_connected, Toast.LENGTH_LONG).show();
                     break;
                 }
                 break;
@@ -153,33 +154,6 @@ public class BluetoothActivity extends Activity {
         }
     };
 	
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-        case REQUEST_CONNECT_DEVICE:
-            // When DeviceListActivity returns with a device to connect
-            if (resultCode == Activity.RESULT_OK) {
-                // Get the device MAC address
-                String address = data.getExtras()
-                                     .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
-                // Get the BLuetoothDevice object
-                BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
-                // Attempt to connect to the device
-                mCommandService.connect(device);
-            }
-            break;
-        case REQUEST_ENABLE_BT:
-            // When the request to enable Bluetooth returns
-            if (resultCode == Activity.RESULT_OK) {
-                // Bluetooth is now enabled, so set up a chat session
-                setupCommand();
-            } else {
-                // User did not enable Bluetooth or an error occured
-                Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        }
-    }
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 //		MenuInflater inflater = getMenuInflater();
