@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" >
@@ -10,8 +9,17 @@
         android:layout_gravity="left"
         android:layout_row="1"
         android:onClick="ButtPress"
-        android:text="@string/Up"/>
-        
+        android:text="@string/Up" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_column="4"
+        android:layout_gravity="left"
+        android:layout_row="1"
+        android:ems="10" >
+
+        <requestFocus />
+    </TextView>
 
     <Button
         android:id="@+id/buttonright"
@@ -23,9 +31,17 @@
         android:onClick="ButtPress"
         android:text="@string/Right" />
 
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_column="4"
+        android:layout_gravity="left"
+        android:layout_row="3"
+        android:layout_rowSpan="2"
+        android:ems="10" />
+
     <Button
         android:id="@+id/buttonA"
-        android:layout_column="5"
+        android:layout_column="6"
         android:layout_gravity="left"
         android:layout_row="4"
         android:layout_rowSpan="3"
@@ -34,7 +50,7 @@
 
     <Button
         android:id="@+id/buttonB"
-        android:layout_column="4"
+        android:layout_column="5"
         android:layout_gravity="left"
         android:layout_row="5"
         android:layout_rowSpan="2"
@@ -48,6 +64,21 @@
         android:layout_row="6"
         android:onClick="ButtPress"
         android:text="@string/Down" />
+
+    <TextView
+        android:id="@+id/TextView03"
+        android:layout_column="4"
+        android:layout_gravity="left"
+        android:layout_row="6"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_column="5"
+        android:layout_gravity="right|bottom"
+        android:layout_row="6"
+        android:text="Calibrate"
+        android:onClick="calibrate" />
 
     <Space
         android:layout_width="1dp"
@@ -95,15 +126,15 @@
         android:layout_row="0" />
 
     <Space
-        android:layout_width="180dp"
+        android:layout_width="123dp"
         android:layout_height="1dp"
-        android:layout_column="3"
+        android:layout_column="4"
         android:layout_row="0" />
 
     <Space
         android:layout_width="82dp"
         android:layout_height="1dp"
-        android:layout_column="4"
+        android:layout_column="5"
         android:layout_row="0" />
 
     <Space
