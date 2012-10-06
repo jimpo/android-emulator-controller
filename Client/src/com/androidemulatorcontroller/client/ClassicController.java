@@ -107,17 +107,17 @@ public class ClassicController extends BluetoothActivity implements SensorEventL
 		  timestamp = event.timestamp;
 		  float[] deltaRotationMatrix = new float[9];
 		  SensorManager.getRotationMatrixFromVector(deltaRotationMatrix, deltaRotationVector);
-		  float[] rotationNext = new float[3];
-		  rotationNext[0] = deltaRotationMatrix[0] * rotationCurrent[0] +
-				  	        deltaRotationMatrix[1] * rotationCurrent[1] +
-				  	        deltaRotationMatrix[2] * rotationCurrent[2];
-          rotationNext[1] = deltaRotationMatrix[3] * rotationCurrent[0] +
-		  	                deltaRotationMatrix[4] * rotationCurrent[1] +
-		  	                deltaRotationMatrix[5] * rotationCurrent[2];
-          rotationNext[2] = deltaRotationMatrix[6] * rotationCurrent[0] +
-	                        deltaRotationMatrix[7] * rotationCurrent[1] +
-	                        deltaRotationMatrix[8] * rotationCurrent[2];
-          rotationCurrent = rotationNext;
+//		  float[] rotationNext = new float[3];
+//		  rotationNext[0] = deltaRotationMatrix[0] * rotationCurrent[0] +
+//				  	        deltaRotationMatrix[1] * rotationCurrent[1] +
+//				  	        deltaRotationMatrix[2] * rotationCurrent[2];
+//          rotationNext[1] = deltaRotationMatrix[3] * rotationCurrent[0] +
+//		  	                deltaRotationMatrix[4] * rotationCurrent[1] +
+//		  	                deltaRotationMatrix[5] * rotationCurrent[2];
+//          rotationNext[2] = deltaRotationMatrix[6] * rotationCurrent[0] +
+//	                        deltaRotationMatrix[7] * rotationCurrent[1] +
+//	                        deltaRotationMatrix[8] * rotationCurrent[2];
+          rotationCurrent = SensorManager.getOrientation(deltaRotationMatrix, rotationCurrent);
           
           if (Math.random() < PY * Math.pow(rotationCurrent[1] - cal[1], NY)) {
         	  writeKeyEvent(rotationCurrent[1] - cal[1] < 0 ? KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT);
