@@ -53,8 +53,8 @@ public class ProcessConnectionThread implements Runnable{
 		try {
 			Robot robot = new Robot();
 			int key = KeyBindings.bindings.get(command);
-	    	robot.keyPress(key);	    		
-	    	robot.keyRelease(key);
+            robot.keyPress(key);
+            robot.keyRelease(key);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
