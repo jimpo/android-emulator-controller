@@ -15,7 +15,7 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RemoteBluetooth extends Activity {
+public class BluetoothActivity extends Activity {
 	
 	// Layout view
 	private TextView mTitle;
@@ -188,7 +188,7 @@ public class RemoteBluetooth extends Activity {
         inflater.inflate(R.menu.option_menu, menu);
         return true;
 	}
-	
+
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -205,17 +205,8 @@ public class RemoteBluetooth extends Activity {
         return false;
     }
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-			mCommandService.write(BluetoothCommandService.VOL_UP);
-			return true;
-		}
-		else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
-			mCommandService.write(BluetoothCommandService.VOL_DOWN);
-			return true;
-		}
-		
-		return super.onKeyDown(keyCode, event);
-	}
+    public void writeKeyEvent(int keyevent) {
+        mCommandService.write(BluetoothCommandService.VOL_UP);
+    }
+
 }
