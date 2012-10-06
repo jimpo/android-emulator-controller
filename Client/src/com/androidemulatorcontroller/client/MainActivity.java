@@ -30,9 +30,15 @@ public class MainActivity extends Activity {
             // Launch the DeviceListActivity to see devices and do scan
             Intent serverIntent = new Intent(this, DeviceListActivity.class);
             startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
+            
             return true;
         }
         return false;
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        startActivityForResult(data, REQUEST_CONNECT_DEVICE);
     }
 
 }
