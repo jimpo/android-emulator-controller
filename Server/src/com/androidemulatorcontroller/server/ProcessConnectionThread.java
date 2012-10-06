@@ -8,6 +8,8 @@ import javax.microedition.io.StreamConnection;
 
 public class ProcessConnectionThread implements Runnable{
 
+    private boolean[] pressed = new boolean[500];
+
 	private StreamConnection mConnection;
 	
 	// Constant that indicate command from devices
@@ -53,8 +55,12 @@ public class ProcessConnectionThread implements Runnable{
 		try {
 			Robot robot = new Robot();
 			int key = KeyBindings.bindings.get(command);
-	    	robot.keyPress(key);	    		
-	    	robot.keyRelease(key);
+            if (pressed[key]) {
+                robot.keyRelease(key);
+            }
+            else {
+                robot.keyPress(key);
+            }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
