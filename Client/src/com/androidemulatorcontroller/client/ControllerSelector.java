@@ -9,11 +9,12 @@ import android.view.Menu;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View;
 
 
-public class ControllerSelector extends BluetoothActivity{
+public class ControllerSelector extends Activity{
     public static String EXTRA_DEVICE_ADDRESS = "device_address";	
 	
     @Override
@@ -21,6 +22,8 @@ public class ControllerSelector extends BluetoothActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.controllerselector_view);
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, R.layout.controller_name);
+        mAdapter.add(PressDatButton.class.getName());
+        
         final BluetoothAdapter mBtAdapter = BluetoothAdapter.getDefaultAdapter();
         final Context self = this;
         
@@ -48,6 +51,10 @@ public class ControllerSelector extends BluetoothActivity{
                 finish();
             }
         };
+        
+        ListView controllerTypes = (ListView) findViewById(R.id.controller_type);
+        controllerTypes.setAdapter(mAdapter);
+        controllerTypes.setOnItemClickListener(mDeviceClickListener);
     }
 
     @Override

@@ -48,9 +48,7 @@ public class BluetoothActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         // Set up the window layout
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.main_activity);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
         
         // Set up the custom title
         mTitle = (TextView) findViewById(R.id.title_left_text);
