@@ -34,6 +34,7 @@ public class BluetoothActivity extends Activity {
     private static BluetoothCommandService mCommandService = null;
     private final Activity self = this;
     private String address = null;
+    public boolean dontStop_believing = false;
 
     /** Called when the activity is first created. */
     @Override
@@ -94,8 +95,12 @@ public class BluetoothActivity extends Activity {
 	protected void onDestroy() {
 		super.onDestroy();
 
-		//if (mCommandService != null)
-			//mCommandService.stop();
+		if (dontStop_believing) {
+			dontStop_believing = false;
+		}
+		else if (mCommandService != null) {
+			mCommandService.stop();
+		}
 	}
 
 	private void setupCommand() {
@@ -141,6 +146,10 @@ public class BluetoothActivity extends Activity {
     };
 
     public void writeKeyEvent(int keyevent) {
+        mCommandService.write(keyevent);
+    }
+
+    public void writeMovementEvent(int keyevent) {
         mCommandService.write(keyevent);
     }
 }

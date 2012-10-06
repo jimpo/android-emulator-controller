@@ -46,6 +46,7 @@ public class ControllerSelector extends BluetoothActivity{
                 Intent intent = null;
                 intent = new Intent(self, controllerClass(controller));
                 intent.putExtra(DeviceListActivity.EXTRA_DEVICE_ADDRESS, getAddress());
+                dontStop_believing = true;
 
                 // Set result and finish this Activity
                 setResult(Activity.RESULT_OK, intent);
