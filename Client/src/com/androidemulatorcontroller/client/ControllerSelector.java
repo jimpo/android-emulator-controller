@@ -19,7 +19,7 @@ public class ControllerSelector extends BluetoothActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.controllersselector_view);
+        setContentView(R.layout.controllerselector_view);
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, R.layout.controller_name);
         final BluetoothAdapter mBtAdapter = BluetoothAdapter.getDefaultAdapter();
         final Context self = this;
@@ -33,7 +33,15 @@ public class ControllerSelector extends BluetoothActivity{
                 String controller = ((TextView) v).getText().toString();
 
                 // Create the result Intent and include the MAC address
-                Intent intent = new Intent(self, Class.forName(controller));
+                Intent intent = null;
+				try {
+					intent = new Intent(self, Class.forName(controller));
+				} catch (ClassNotFoundException e) {
+					System.out.println("You done fucked up");
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                //intent.putExtra("BLUETOOTH_DEVICE", mBluetoothDevice);
 
                 // Set result and finish this Activity
                 setResult(Activity.RESULT_OK, intent);
@@ -44,7 +52,7 @@ public class ControllerSelector extends BluetoothActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.controllerselector_view, menu);
+        getMenuInflater().inflate(R.menu.controllerselector_menu, menu);
         return true;
     }
 
