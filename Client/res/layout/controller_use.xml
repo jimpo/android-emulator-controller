@@ -24,7 +24,7 @@
         android:layout_rowSpan="4"
         android:onFocusChange="ButtPress"
         android:text="@string/B"
-        android:textSize="62" />
+        android:textSize="62dp" />
 
     <Button
         android:id="@+id/buttonA"
@@ -36,7 +36,7 @@
         android:layout_rowSpan="4"
         android:onFocusChange="ButtPress"
         android:text="@string/A"
-        android:textSize="62" />
+        android:textSize="62dp" />
 
     <Button
         android:id="@+id/buttonleft"
