@@ -13,11 +13,13 @@
         android:textColor="#fff"
         android:paddingLeft="5dp"
     />
-
+    
     <Button
-        android:id="@+id/button_scan"
+        android:id="@+id/scan"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_scan" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/scan" />
 
 </RelativeLayout>

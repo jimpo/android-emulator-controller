@@ -52,7 +52,6 @@ public class ControllerSelector extends BluetoothActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.controllerselector_menu, menu);
         return true;
     }
 
