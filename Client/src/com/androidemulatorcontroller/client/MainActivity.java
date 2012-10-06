@@ -1,19 +1,27 @@
 package com.androidemulatorcontroller.client;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class MainActivity extends Activity {
 	private static final int REQUEST_CONNECT_DEVICE = 1;
-
+	private final Context self = this;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        Button button = (Button)findViewById(R.id.scan);
+        // Register the onClick listener with the implementation above
+        button.setOnClickListener(onScanButtonClick);
+
     }
 
     @Override
@@ -23,15 +31,21 @@ public class MainActivity extends Activity {
         return true;
     }
     
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.scan:
-            Intent serverIntent = new Intent(this, DeviceListActivity.class);
+    // @Override
+    // public boolean onOptionsItemSelected(MenuItem item) {
+    //     switch (item.getItemId()) {
+    //     case R.id.scan:
+    //         Intent serverIntent = new Intent(this, DeviceListActivity.class);
+    //         startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
+    //         return true;
+    //     }
+    //     return false;
+    // }
+    private OnClickListener onScanButtonClick = new OnClickListener() {
+        public void onClick(View v) {
+            Intent serverIntent = new Intent(self, DeviceListActivity.class);
             startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
-            return true;
         }
-        return false;
-    }
+    };
 
 }
