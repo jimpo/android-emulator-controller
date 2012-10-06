@@ -52,20 +52,9 @@ public class ProcessConnectionThread implements Runnable{
 	private void processCommand(int command) {
 		try {
 			Robot robot = new Robot();
-			switch (command) {
-	    	case KEY_RIGHT:
-	    		robot.keyPress(KeyEvent.VK_RIGHT);
-	    		System.out.println("Right");
-	    		// release the key after it is pressed. Otherwise the event just keeps getting trigged	    		
-	    		robot.keyRelease(KeyEvent.VK_RIGHT);
-	    		break;
-	    	case KEY_LEFT:
-	    		robot.keyPress(KeyEvent.VK_LEFT);
-	    		System.out.println("Left");
-	    		// release the key after it is pressed. Otherwise the event just keeps getting trigged	    		
-	    		robot.keyRelease(KeyEvent.VK_LEFT);
-	    		break;
-			}
+			int key = KeyBindings.bindings.get(command);
+	    	robot.keyPress(key);	    		
+	    	robot.keyRelease(key);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
