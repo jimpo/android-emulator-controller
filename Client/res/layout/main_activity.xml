@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-    <TextView android:id="@+id/connection_name"
+    <TextView android:id="@+id/title_paired_devices"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_paired_devices"
@@ -13,11 +13,13 @@
         android:textColor="#fff"
         android:paddingLeft="5dp"
     />
-
-    <ListView android:id="@+id/controller_type"
+    
+    <Button
+        android:id="@+id/scan"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:stackFromBottom="true"
-        android:layout_weight="1"
-    />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/scan" />
+
 </RelativeLayout>

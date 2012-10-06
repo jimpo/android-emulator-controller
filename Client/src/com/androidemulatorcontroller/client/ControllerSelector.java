@@ -7,7 +7,7 @@ public class ControllerSelector extends BluetoothActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.controllerselector_view);
+        setContentView(R.layout.controllerselector_view);        
     }
 
     @Override
