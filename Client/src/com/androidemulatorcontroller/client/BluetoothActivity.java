@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
 public class BluetoothActivity extends Activity {
@@ -33,6 +34,7 @@ public class BluetoothActivity extends Activity {
     private BluetoothCommandService mCommandService = null;
     private BluetoothDevice mDevice = null;
     private final Activity self = this;
+    private String address = null;
 
     /** Called when the activity is first created. */
     @Override
@@ -50,8 +52,13 @@ public class BluetoothActivity extends Activity {
         }
 
         Intent intent = getIntent();
-        String address = intent.getStringExtra(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+        
+        address = intent.getStringExtra(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
         mDevice = mBluetoothAdapter.getRemoteDevice(address);
+    }
+
+    public String getAddress() {
+        return address;
     }
 
 	@Override
@@ -97,6 +104,9 @@ public class BluetoothActivity extends Activity {
 	private void setupCommand() {
 		// Initialize the BluetoothChatService to perform bluetooth connections
         mCommandService = new BluetoothCommandService(this, mHandler);
+	}
+	
+	public void connect() {
         mCommandService.connect(mDevice);
 	}
 

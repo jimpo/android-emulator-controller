@@ -45,7 +45,7 @@ public class ControllerSelector extends BluetoothActivity{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-                //intent.putExtra("BLUETOOTH_DEVICE", mBluetoothDevice);
+                intent.putExtra(DeviceListActivity.EXTRA_DEVICE_ADDRESS, getAddress());
 
                 // Set result and finish this Activity
                 setResult(Activity.RESULT_OK, intent);
